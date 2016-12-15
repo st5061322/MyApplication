@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="我的帳號">
+        <menu>
+            <item
+                android:id="@+id/nav_profile"
+                android:icon="@drawable/ic_face_black"
+                android:title="更改暱稱" />
+            <item
+                android:id="@+id/nav_login_out"
+                android:icon="@drawable/ic_login_out"
+                android:title="登出" />
+        </menu>
+    </item>
+
+</menu>

@@ -1,0 +1,119 @@
+{
+  "project_info": {
+    "project_number": "241772451055",
+    "firebase_url": "https://myapplication-2639e.firebaseio.com",
+    "project_id": "myapplication-2639e",
+    "storage_bucket": "myapplication-2639e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:241772451055:android:16915934e151e2c2",
+        "android_client_info": {
+          "package_name": "com.niu.askquestionapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "241772451055-8eq8mdbmph589jhkbn6mrsacmpmhli2g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVwb82K6NwFXxRP_Mp8KVoKoIFlxQKDUw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "241772451055-8eq8mdbmph589jhkbn6mrsacmpmhli2g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:241772451055:android:80a82209343bc191",
+        "android_client_info": {
+          "package_name": "com.niu.askquestion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "241772451055-8eq8mdbmph589jhkbn6mrsacmpmhli2g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVwb82K6NwFXxRP_Mp8KVoKoIFlxQKDUw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "241772451055-8eq8mdbmph589jhkbn6mrsacmpmhli2g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:241772451055:android:6d76526959b41ebd",
+        "android_client_info": {
+          "package_name": "com.niu.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "241772451055-8eq8mdbmph589jhkbn6mrsacmpmhli2g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVwb82K6NwFXxRP_Mp8KVoKoIFlxQKDUw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "241772451055-8eq8mdbmph589jhkbn6mrsacmpmhli2g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
