@@ -20,6 +20,7 @@ import com.niu.myapplication.RecyclerView.SpacesItemDecoration;
 
 public class SubjectActivity extends AppCompatActivity {
 
+
     String subjectRef;
     DatabaseReference ArticleRef;
     RecyclerView recyclerView;
@@ -33,7 +34,9 @@ public class SubjectActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        getDataFromMain();
+        setTitle(((LocationApplication)getApplication()).getLocation());
+        subjectRef = ((LocationApplication)getApplication()).getLocationRef();
+
         ArticleRef = FirebaseDatabase.getInstance().getReference(subjectRef).child("article");
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -50,6 +53,7 @@ public class SubjectActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        super.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
@@ -115,13 +119,6 @@ public class SubjectActivity extends AppCompatActivity {
                             }
                         })
         );
-    }
-
-    private void getDataFromMain(){
-        Bundle bundleSub =this.getIntent().getExtras();
-        String subjectname = bundleSub.getString("subject");
-        subjectRef = bundleSub.getString("subjectRef");
-        setTitle(subjectname);
     }
 
     private void updateFromTop(){

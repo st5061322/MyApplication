@@ -9,6 +9,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
+        android:name=".LocationApplication"
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
@@ -41,8 +42,11 @@
         <activity
             android:name=".EditArticleActivity"
             android:label="@string/title_activity_edit_article"
+            android:parentActivityName=".SubjectActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ArticleActivity"></activity>
+        <activity android:name=".ArticleActivity"
+                  android:parentActivityName=".SubjectActivity">
+        </activity>
     </application>
 
 </manifest>

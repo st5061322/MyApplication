@@ -50,6 +50,7 @@ public class EditArticleActivity extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         userUID = user.getUid();
         storageReference = FirebaseStorage.getInstance().getReference();
+        super.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void releaseArticle() {                                        //發表文章

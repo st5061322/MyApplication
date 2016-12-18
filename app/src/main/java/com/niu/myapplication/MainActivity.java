@@ -1,5 +1,6 @@
 package com.niu.myapplication;
 
+import android.app.Application;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -130,12 +131,10 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void setSubData(String subject){                     //修改subjectActivity名字
-        Bundle bundle = new Bundle();
-        bundle.putString("subject",subject);
-        bundle.putString("subjectRef",subjectRef);
+        ((LocationApplication)getApplication()).setLocation(subject);
+        ((LocationApplication)getApplication()).setLocationRef(subjectRef);
 
         Intent intentSubject = new Intent(this,SubjectActivity.class);
-        intentSubject.putExtras(bundle);
         startActivity(intentSubject);
     }
 

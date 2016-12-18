@@ -64,6 +64,7 @@ public class ArticleActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         serAdapter();
+        super.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
     public static class ViewHolder extends RecyclerView.ViewHolder{
         TextView nickName,Content,date;
