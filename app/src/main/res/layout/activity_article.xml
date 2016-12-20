@@ -73,11 +73,36 @@
                         android:textColor="@android:color/black"
                         android:id="@+id/content" />
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/activity_horizontal_margin"
+                        android:paddingRight="@dimen/activity_horizontal_margin"
+                        android:paddingTop="@dimen/activity_vertical_margin"
+                        android:paddingBottom="16dp"
+                        android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:text="圖片:"
+                        android:textColor="@android:color/black"
+                        android:id="@+id/gg" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:id="@+id/image"/>
+
+                    </LinearLayout>
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:text="其他人的回答"
-                        android:background="@color/colorPrimary"
+                        android:background="@color/colorAccent"
                         android:textColor="@android:color/black"
                         android:gravity="center"
                         android:textSize="20sp"/>

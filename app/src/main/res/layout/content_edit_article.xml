@@ -17,8 +17,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="標題"
-        android:id="@+id/textView3" />
+        android:text="標題" />
 
     <EditText
         android:layout_width="match_parent"
@@ -30,8 +29,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="內文"
-        android:id="@+id/textView4" />
+        android:text="內文" />
 
     <EditText
         android:layout_width="match_parent"
@@ -41,5 +39,19 @@
         android:id="@+id/articleContent"
         android:autoText="false"
         android:autoLink="web" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="圖片網址" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/articleImageURL"
+        android:autoText="false" />
+
 
 </LinearLayout>

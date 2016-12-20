@@ -9,9 +9,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -39,7 +41,8 @@ public class ArticleActivity extends AppCompatActivity {
     String userUID,articleDataRef,articleDataKEY,artKey,articleAutherUID,Nickname,articleTitle;
     RecyclerView recyclerView;
     EditText replaycontent;
-    TextView nickname,date,content;
+    TextView nickname,date,content,gg;
+    ImageView image;
     private FirebaseRecyclerAdapter<Article,ViewHolder> adapter;
     static final int RC_PHOTO_PICKER = 1;
 
@@ -50,6 +53,10 @@ public class ArticleActivity extends AppCompatActivity {
         nickname = (TextView)findViewById(R.id.nickname);
         date = (TextView)findViewById(R.id.date);
         content = (TextView)findViewById(R.id.content);
+        image =(ImageView) findViewById(R.id.image);
+        gg = (TextView) findViewById(R.id.gg);
+        gg.setVisibility(View.GONE);
+        image.setVisibility(View.GONE);
 
         getDataFromSubjectActivity();
         auth = FirebaseAuth.getInstance();
@@ -64,7 +71,6 @@ public class ArticleActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         serAdapter();
-        super.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
     public static class ViewHolder extends RecyclerView.ViewHolder{
         TextView nickName,Content,date;
@@ -89,6 +95,14 @@ public class ArticleActivity extends AppCompatActivity {
                         setTitle(articleTitle);
                         date.setText(ds.child("date").getValue().toString());
                         content.setText(ds.child("content").getValue().toString());
+                        if(ds.child("imageURL").getValue().toString().startsWith("https://firebasestorage.googleapis.com/")){
+                            gg.setVisibility(View.VISIBLE);
+                            image.setVisibility(View.VISIBLE);
+                            Glide.with(ArticleActivity.this)
+                                    .load(ds.child("imageURL").getValue().toString())
+                                    .into(image);
+
+                        }
                     }
                 }
             }

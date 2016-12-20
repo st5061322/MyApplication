@@ -31,7 +31,7 @@ import java.util.Map;
 public class EditArticleActivity extends AppCompatActivity {
     static final int RC_PHOTO_PICKER = 1;
     StorageReference storageReference;
-    EditText articleContent,articleTitle;
+    EditText articleContent,articleTitle,articleImageURL;
     String editarticleRef,userUID;
 
     @Override
@@ -44,6 +44,7 @@ public class EditArticleActivity extends AppCompatActivity {
         setTitle("發表問題");
         articleTitle = (EditText) findViewById(R.id.articleTitle);
         articleContent = (EditText) findViewById(R.id.articleContent);
+        articleImageURL = (EditText) findViewById(R.id.articleImageURL);
         storageReference = FirebaseStorage.getInstance().getReference();
         Bundle bundleSub =this.getIntent().getExtras();
         editarticleRef = bundleSub.getString("editArticleRef");
@@ -56,6 +57,7 @@ public class EditArticleActivity extends AppCompatActivity {
     private void releaseArticle() {                                        //發表文章
         String title = articleTitle.getText().toString();
         String content = articleContent.getText().toString();
+        String URL = articleImageURL.getText().toString();
 
         if (title.length() != 0 && content.length() != 0) {
             DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference(editarticleRef);
@@ -70,7 +72,7 @@ public class EditArticleActivity extends AppCompatActivity {
             article.put("userID", userUID);
             article.put("title", title);
             article.put("content", content);
-
+            article.put("imageURL", ""+ URL );
             articleRef.updateChildren(article,
                     new DatabaseReference.CompletionListener() {
                         @Override
@@ -107,7 +109,7 @@ public class EditArticleActivity extends AppCompatActivity {
                     // When the image has successfully uploaded, we get its download URL
                     Uri downloadUrl = taskSnapshot.getDownloadUrl();
                     // Set the download URL to the message box, so that the user can send it to the database
-                    articleContent.setText(downloadUrl.toString());
+                    articleImageURL.setText(downloadUrl.toString());
                 }
             });
         }
