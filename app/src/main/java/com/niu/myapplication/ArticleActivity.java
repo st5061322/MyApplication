@@ -1,6 +1,8 @@
 package com.niu.myapplication;
 
+import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,12 +10,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.util.Util;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -25,7 +29,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.niu.myapplication.RecyclerView.Article;
+import com.niu.myapplication.RecyclerView.ReplayActivity;
 import com.niu.myapplication.RecyclerView.SpacesItemDecoration;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -55,8 +61,6 @@ public class ArticleActivity extends AppCompatActivity {
         content = (TextView)findViewById(R.id.content);
         image =(ImageView) findViewById(R.id.image);
         gg = (TextView) findViewById(R.id.gg);
-        gg.setVisibility(View.GONE);
-        image.setVisibility(View.GONE);
 
         getDataFromSubjectActivity();
         auth = FirebaseAuth.getInstance();
@@ -66,21 +70,35 @@ public class ArticleActivity extends AppCompatActivity {
         articleKeyRef = FirebaseDatabase.getInstance().getReference(articleDataRef).child("article").child(articleDataKEY);
         articleRef = FirebaseDatabase.getInstance().getReference(articleDataRef).child("article");
         nicknameRef = FirebaseDatabase.getInstance().getReference("user");
-        setArticle();
         recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         serAdapter();
     }
     public static class ViewHolder extends RecyclerView.ViewHolder{
+
         TextView nickName,Content,date;
+
         public ViewHolder(View itemView) {
             super(itemView);
+
             nickName = (TextView)itemView.findViewById(R.id.nickname);
             date = (TextView)itemView.findViewById(R.id.date);
-            Content =(TextView)itemView.findViewById(R.id.replaycontent);
+            Content = (TextView)itemView.findViewById(R.id.replaycontent);
 
         }
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        setArticle();
     }
 
     private void setArticle(){
@@ -98,10 +116,13 @@ public class ArticleActivity extends AppCompatActivity {
                         if(ds.child("imageURL").getValue().toString().startsWith("https://firebasestorage.googleapis.com/")){
                             gg.setVisibility(View.VISIBLE);
                             image.setVisibility(View.VISIBLE);
-                            Glide.with(ArticleActivity.this)
+                            Picasso.with(ArticleActivity.this)
                                     .load(ds.child("imageURL").getValue().toString())
+                                    .error(R.drawable.imageerror)
                                     .into(image);
-
+                        } else {
+                            gg.setVisibility(View.GONE);
+                            image.setVisibility(View.GONE);
                         }
                     }
                 }
@@ -174,7 +195,15 @@ public class ArticleActivity extends AppCompatActivity {
     }
 
     public void replayAlertDialogEvent(View view){
-        final View v = LayoutInflater.from(ArticleActivity.this).inflate(R.layout.alert_article, null);
+        Intent intent = new Intent(ArticleActivity.this, ReplayActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("articleDataRef",articleDataRef);
+        bundle.putString("articleDataKEY",articleDataKEY);
+
+        intent.putExtras(bundle);
+        startActivity(intent);
+
+        /*final View v = LayoutInflater.from(ArticleActivity.this).inflate(R.layout.alert_article, null);
         new AlertDialog.Builder(ArticleActivity.this)
                 .setTitle("我來回答")
                 .setView(v)
@@ -197,6 +226,6 @@ public class ArticleActivity extends AppCompatActivity {
                     }
                 })
                 .setNegativeButton("取消",null)
-                .show();
+                .show();*/
     }
 }

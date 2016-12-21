@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -87,12 +88,6 @@ public class SubjectActivity extends AppCompatActivity {
             titleView = (TextView)itemView.findViewById(R.id.subject_title);
             dateView =(TextView)itemView.findViewById(R.id.subject_date);
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        adapter.cleanup();
     }
 
     private void recyclerViewItmListener(){

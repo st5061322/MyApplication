@@ -33,6 +33,7 @@ public class EditArticleActivity extends AppCompatActivity {
     StorageReference storageReference;
     EditText articleContent,articleTitle,articleImageURL;
     String editarticleRef,userUID;
+    DatabaseReference usersRef,articleRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,22 +58,22 @@ public class EditArticleActivity extends AppCompatActivity {
     private void releaseArticle() {                                        //發表文章
         String title = articleTitle.getText().toString();
         String content = articleContent.getText().toString();
-        String URL = articleImageURL.getText().toString();
+        String URL = "" + articleImageURL.getText().toString();
 
         if (title.length() != 0 && content.length() != 0) {
-            DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference(editarticleRef);
+            usersRef = FirebaseDatabase.getInstance().getReference(editarticleRef);
 
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
             Date curDate = new Date(System.currentTimeMillis()) ; // 獲取當前時間
             String str = formatter.format(curDate);
 
-            DatabaseReference articleRef = usersRef.child("article").push();
+            articleRef = usersRef.child("article").push();
             Map<String, Object> article = new HashMap<>();
             article.put("date",str);
             article.put("userID", userUID);
             article.put("title", title);
             article.put("content", content);
-            article.put("imageURL", ""+ URL );
+            article.put("imageURL",URL);
             articleRef.updateChildren(article,
                     new DatabaseReference.CompletionListener() {
                         @Override
@@ -87,6 +88,9 @@ public class EditArticleActivity extends AppCompatActivity {
                             }
                         }
                     });
+        } else {
+            Toast toast = Toast.makeText(EditArticleActivity.this, "請輸入內容!", Toast.LENGTH_LONG);
+            toast.show();
         }
     }
 

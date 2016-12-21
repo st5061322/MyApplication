@@ -5,11 +5,11 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".LocationApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:name=".LocationApplication"
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
@@ -34,19 +34,20 @@
             android:name=".SubjectActivity"
             android:label="@string/title_activity_subject"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.niu.myapplication.MainActivity" />
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".EditArticleActivity"
             android:label="@string/title_activity_edit_article"
             android:parentActivityName=".SubjectActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ArticleActivity"
-                  android:parentActivityName=".SubjectActivity">
-        </activity>
+        <activity
+            android:name=".ArticleActivity"
+            android:parentActivityName=".SubjectActivity" />
+        <activity
+            android:name=".RecyclerView.ReplayActivity"
+            android:label="@string/title_activity_replay"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

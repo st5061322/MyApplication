@@ -10,16 +10,18 @@ public class Article {
     public String content;
     public String replaycontent;
     public String userID;
+    public String imageURL;
 
     public Article() {
     }
 
-    public Article(String title, String date, String content,String userID, String replaycontent) {
+    public Article(String title, String date, String content,String userID, String replaycontent,String imageURL) {
         this.title = title;
         this.date = date;
         this.content = content;
         this.userID = userID;
         this.replaycontent = replaycontent;
+        this.imageURL = imageURL;
     }
 
     public String getTitle() { return title; }
@@ -32,5 +34,9 @@ public class Article {
 
     public String getUserID() {
         return userID;
+    }
+
+    public String getImageURL() {
+        return imageURL;
     }
 }
