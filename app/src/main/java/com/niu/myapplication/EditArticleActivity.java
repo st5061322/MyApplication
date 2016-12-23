@@ -11,6 +11,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -20,6 +22,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -34,6 +37,8 @@ public class EditArticleActivity extends AppCompatActivity {
     EditText articleContent,articleTitle,articleImageURL;
     String editarticleRef,userUID;
     DatabaseReference usersRef,articleRef;
+    ProgressBar progressBar;
+    TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +48,11 @@ public class EditArticleActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         setTitle("發表問題");
+        progressBar = (ProgressBar)findViewById(R.id.progressBar);
         articleTitle = (EditText) findViewById(R.id.articleTitle);
         articleContent = (EditText) findViewById(R.id.articleContent);
         articleImageURL = (EditText) findViewById(R.id.articleImageURL);
+        textView = (TextView) findViewById(R.id.imagetxtview);
         storageReference = FirebaseStorage.getInstance().getReference();
         Bundle bundleSub =this.getIntent().getExtras();
         editarticleRef = bundleSub.getString("editArticleRef");
@@ -108,12 +115,28 @@ public class EditArticleActivity extends AppCompatActivity {
         if(requestCode == RC_PHOTO_PICKER && resultCode ==RESULT_OK){
             Uri uri = data.getData();
             StorageReference filepath = storageReference.child("photo").child(uri.getLastPathSegment());
+
+            textView.setVisibility(View.VISIBLE);
+            articleImageURL.setVisibility(View.VISIBLE);
+
             filepath.putFile(uri).addOnSuccessListener(this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     // When the image has successfully uploaded, we get its download URL
                     Uri downloadUrl = taskSnapshot.getDownloadUrl();
                     // Set the download URL to the message box, so that the user can send it to the database
-                    articleImageURL.setText(downloadUrl.toString());
+                    articleImageURL.append(downloadUrl.toString()+"\n");
+                    Toast.makeText(EditArticleActivity.this, "上傳成功!", Toast.LENGTH_LONG).show();
+                    progressBar.setVisibility(View.GONE);
+                }
+
+            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                    double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                    progressBar.setVisibility(View.VISIBLE);
+                    System.out.println("Upload is " + progress + "% done");
+                    int currentprogress = (int) progress;
+                    progressBar.setProgress(currentprogress);
                 }
             });
         }

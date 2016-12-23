@@ -39,11 +39,27 @@
         android:id="@+id/articleContent"
         android:autoText="false"
         android:autoLink="web" />
-
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="圖片網址" />
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="10dp"
+            android:id="@+id/imagetxtview"
+            android:visibility="gone"
+            android:text="圖片網址" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
 
     <EditText
         android:layout_width="match_parent"
@@ -51,6 +67,7 @@
         android:inputType="textMultiLine"
         android:ems="10"
         android:id="@+id/articleImageURL"
+        android:visibility="gone"
         android:autoText="false" />
 
 

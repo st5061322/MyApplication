@@ -73,11 +73,12 @@ public class ArticleActivity extends AppCompatActivity {
         recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        serAdapter();
+        setAdapter();
     }
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
         TextView nickName,Content,date;
+        static ImageView imageView;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -85,7 +86,7 @@ public class ArticleActivity extends AppCompatActivity {
             nickName = (TextView)itemView.findViewById(R.id.nickname);
             date = (TextView)itemView.findViewById(R.id.date);
             Content = (TextView)itemView.findViewById(R.id.replaycontent);
-
+            imageView = (ImageView)itemView.findViewById(R.id.imageReplay);
         }
 
     }
@@ -99,6 +100,7 @@ public class ArticleActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         setArticle();
+        setAdapter();
     }
 
     private void setArticle(){
@@ -159,7 +161,7 @@ public class ArticleActivity extends AppCompatActivity {
         articleDataKEY = bundleArticle.getString("articleDataKEY");
     }
 
-    private void serAdapter(){
+    private void setAdapter(){
         adapter = new FirebaseRecyclerAdapter<Article, ViewHolder>(
                 Article.class,
                 R.layout.item_article,
@@ -187,6 +189,15 @@ public class ArticleActivity extends AppCompatActivity {
                 });
                 viewHolder.date.setText(model.getDate());
                 viewHolder.Content.setText(model.getReplaycontent());
+                if(model.getImageURL().startsWith("https://firebasestorage.googleapis.com/")){
+                    ViewHolder.imageView.setVisibility(View.VISIBLE);
+                    Picasso.with(ArticleActivity.this)
+                            .load(model.getImageURL())
+                            .into(ViewHolder.imageView);
+                } else {
+                    ViewHolder.imageView.setVisibility(View.GONE);
+                }
+
             }
         };
         recyclerView.addItemDecoration(new SpacesItemDecoration(this));

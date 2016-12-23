@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -20,6 +21,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.niu.myapplication.EditArticleActivity;
@@ -38,6 +40,7 @@ public class ReplayActivity extends AppCompatActivity {
     FirebaseAuth auth;
     FirebaseUser user;
     String userUID,KeyRef,articleDataRef,articleDataKEY;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,7 @@ public class ReplayActivity extends AppCompatActivity {
         setTitle("我來回答");
         getDataFromArticleActivity();
         articleContent = (EditText) findViewById(R.id.articleContent);
+        progressBar = (ProgressBar)findViewById(R.id.progressBar);
         articleImageURL = (EditText) findViewById(R.id.articleImageURL);
         articleImageURL = (EditText) findViewById(R.id.articleImageURL);
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -77,7 +81,18 @@ public class ReplayActivity extends AppCompatActivity {
                     // When the image has successfully uploaded, we get its download URL
                     Uri downloadUrl = taskSnapshot.getDownloadUrl();
                     // Set the download URL to the message box, so that the user can send it to the database
-                    articleImageURL.setText(downloadUrl.toString());
+                    articleImageURL.append(downloadUrl.toString()+"\n");
+                    Toast.makeText(ReplayActivity.this, "上傳成功!", Toast.LENGTH_LONG).show();
+                    progressBar.setVisibility(View.GONE);
+                }
+            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                    double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                    progressBar.setVisibility(View.VISIBLE);
+                    System.out.println("Upload is " + progress + "% done");
+                    int currentprogress = (int) progress;
+                    progressBar.setProgress(currentprogress);
                 }
             });
         }
